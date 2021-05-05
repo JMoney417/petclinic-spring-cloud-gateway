@@ -1,0 +1,23 @@
+---
+server:
+  port: 8080
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+
+spring:
+  application:
+    name: gateway-service
+  cloud:
+    gateway:
+      routes:
+        - id: owner-service
+          uri: lb://OWNER-SERVICE
+          predicates:
+            - Path=/ownerapi/**
+        - id: pet-service
+          uri: lb://PET-SERVICE
+          predicates:
+            - Path=/petapi/**
